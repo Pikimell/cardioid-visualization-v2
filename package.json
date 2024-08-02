@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build --base=/cardioid-visualization-v2/",
+    "build": "vite build --base=//",
     "preview": "vite preview"
   },
   "devDependencies": {
