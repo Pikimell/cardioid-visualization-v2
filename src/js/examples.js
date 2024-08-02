@@ -49,6 +49,73 @@ const examples = [
     drawAnimation: true,
     clearCanvas: true,
   },
+  {
+    circles: [
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: false,
+        isDrawingVector: false,
+      },
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: false,
+        isDrawingVector: true,
+      },
+    ],
+    fps: 1,
+    drawAnimation: true,
+    clearCanvas: true,
+  },
+  {
+    circles: [
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: false,
+        isDrawingVector: false,
+      },
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: true,
+        isDrawingVector: false,
+        penWidth: 4,
+      },
+    ],
+    fps: 1,
+    drawAnimation: true,
+    clearCanvas: true,
+  },
+  {
+    circles: [
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: false,
+        isDrawingVector: false,
+      },
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: false,
+        isDrawingVector: true,
+        color: [255, 255, 0],
+      },
+      {
+        stepVector: 1,
+        lengthVector: 100,
+        isDrawingCircle: false,
+        isDrawingVector: true,
+        penWidth: 4,
+        color: [255, 0, 0],
+      },
+    ],
+    fps: 3,
+    drawAnimation: true,
+    clearCanvas: true,
+  },
 ];
 
 const exampleContainer = document.querySelector('.js-example');
@@ -93,4 +160,5 @@ function onSelectExample(e) {
   options.drawAnimation = example.drawAnimation;
   options.clearCanvas = example.clearCanvas;
   FPS = example.fps || 1;
+  refs.form.elements.index.setAttribute('max', circles.length);
 }
