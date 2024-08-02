@@ -7,13 +7,17 @@ const refs = {
   animationBtn: document.querySelector('.js-btn[data-type="animation"]'),
   updateBtn: document.querySelector('[data-update]'),
   removeBtn: document.querySelector('[data-remove]'),
-  form: document.querySelector('js-form'),
+  form: document.querySelector('.js-form'),
 };
 
+console.dir(refs.form);
 refs.activeBtn.addEventListener('click', onActiveBtnClick);
 refs.addBtn.addEventListener('click', onAddBtnClick);
 refs.cleanerCanvasBtn.addEventListener('click', onClearCanvasClick);
 refs.cleanerBtn.addEventListener('click', onClearBtnClick);
+refs.updateBtn.addEventListener('click', onUpdateCircle);
+refs.form.elements.index.addEventListener('input', onUpdateInfo);
+refs.form.addEventListener('submit', e => e.preventDefault());
 
 function onActiveBtnClick() {
   options.isActive = !options.isActive;
@@ -25,9 +29,11 @@ function onAddBtnClick() {
     X: centerScreen.X,
     Y: centerScreen.Y,
   };
-  circles[i].stepVector = 2;
-  circles[i].isDrawingCircle = true;
-  // circles[i].isDrawingVector = true;
+  circles[i].stepVector = 1;
+  circles[i].isDrawingCircle = false;
+  circles[i].isDrawingVector = false;
+
+  refs.form.index.setAttribute('max', circles.length);
 }
 
 function onClearCanvasClick() {
@@ -36,4 +42,53 @@ function onClearCanvasClick() {
 
 function onClearBtnClick() {
   options.clearCanvas = !options.clearCanvas;
+}
+
+function onUpdateCircle(e) {
+  const index = +refs.form.elements.index.value - 1;
+  if (index >= circles.length) {
+    return;
+  }
+
+  circles[index].stepVector = +refs.form.elements.speed.value;
+  circles[index].lengthVector = +refs.form.elements.radius.value;
+  circles[index].penWidth = +refs.form.elements.width.value;
+  circles[index].isDrawingCircle = refs.form.elements.drawPoint.checked;
+  circles[index].isDrawingVector = refs.form.elements.drawVector.checked;
+  circles[index].color = hexToRgb(refs.form.elements.color.value);
+  console.log(refs.form.elements.color.value);
+}
+
+function onUpdateInfo(e) {
+  const index = +e.target.value - 1;
+  if (index >= circles.length) {
+    refs.form.reset();
+    e.target.value = index + 1;
+    return;
+  }
+
+  refs.form.elements.speed.value = circles[index].stepVector;
+  refs.form.elements.radius.value = circles[index].lengthVector;
+  refs.form.elements.width.value = circles[index].penWidth;
+  refs.form.elements.drawPoint.checked = circles[index].isDrawingCircle;
+  refs.form.elements.drawVector.checked = circles[index].isDrawingVector;
+  refs.form.elements.color.value = rgbToHex(circles[index].color);
+}
+
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+      ]
+    : [0, 0, 0];
+}
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? '0' + hex : hex;
+}
+function rgbToHex([r, g, b]) {
+  return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }

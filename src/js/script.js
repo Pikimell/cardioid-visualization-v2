@@ -25,7 +25,8 @@ function draw() {
   if (frame === 0 && options.isActive) {
     if (options.clearCanvas) background(255);
 
-    drawCircles();
+    if (options.drawAnimation) drawAnimation();
+    else drawCircles();
   }
 }
 
@@ -60,6 +61,24 @@ function drawCircles() {
     circles[i].drawPoint();
     circles[i].nextStep();
   }
+}
+
+function drawAnimation() {
+  for (let j = 0; j < 360; j++) {
+    for (let i = 0; i < circles.length; i++) {
+      if (i > 0) {
+        circles[i].centerCircle = {
+          X: circles[i - 1].endPointVector.X,
+          Y: circles[i - 1].endPointVector.Y,
+        };
+      }
+
+      circles[i].drawVector();
+      circles[i].drawPoint();
+      circles[i].nextStep();
+    }
+  }
+  newStep(circles.length - 1);
 }
 
 function newStep(index) {
