@@ -8,16 +8,24 @@ const refs = {
   updateBtn: document.querySelector('[data-update]'),
   removeBtn: document.querySelector('[data-remove]'),
   form: document.querySelector('.js-form'),
+  animationSpeed: document.querySelector('.js-animation-speed'),
 };
 
-console.dir(refs.form);
 refs.activeBtn.addEventListener('click', onActiveBtnClick);
 refs.addBtn.addEventListener('click', onAddBtnClick);
+refs.resetBtn.addEventListener('click', onResetBtnClick);
+refs.animationBtn.addEventListener('click', onAnimationBtnClick);
 refs.cleanerCanvasBtn.addEventListener('click', onClearCanvasClick);
 refs.cleanerBtn.addEventListener('click', onClearBtnClick);
 refs.updateBtn.addEventListener('click', onUpdateCircle);
+refs.removeBtn.addEventListener('click', onRemoveClick);
 refs.form.elements.index.addEventListener('input', onUpdateInfo);
 refs.form.addEventListener('submit', e => e.preventDefault());
+
+refs.animationSpeed.addEventListener('input', e => {
+  const value = 30 - +e.target.value;
+  FPS = value;
+});
 
 function onActiveBtnClick() {
   options.isActive = !options.isActive;
@@ -44,6 +52,17 @@ function onClearBtnClick() {
   options.clearCanvas = !options.clearCanvas;
 }
 
+function onRemoveClick(e) {
+  const index = +refs.form.elements.index.value - 1;
+  if (index >= circles.length) {
+    return;
+  }
+
+  circles.splice(index, 1);
+  refs.form.index.setAttribute('max', circles.length);
+  refs.form.reset();
+}
+
 function onUpdateCircle(e) {
   const index = +refs.form.elements.index.value - 1;
   if (index >= circles.length) {
@@ -61,7 +80,7 @@ function onUpdateCircle(e) {
 
 function onUpdateInfo(e) {
   const index = +e.target.value - 1;
-  if (index >= circles.length) {
+  if (index >= circles.length || !circles.length) {
     refs.form.reset();
     e.target.value = index + 1;
     return;
@@ -74,6 +93,12 @@ function onUpdateInfo(e) {
   refs.form.elements.drawVector.checked = circles[index].isDrawingVector;
   refs.form.elements.color.value = rgbToHex(circles[index].color);
 }
+
+function onAnimationBtnClick() {
+  options.drawAnimation = !options.drawAnimation;
+}
+
+function onResetBtnClick() {}
 
 function hexToRgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

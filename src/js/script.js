@@ -31,7 +31,7 @@ function draw() {
 }
 
 function initialCircles() {
-  let lengthArray = 1;
+  let lengthArray = 3;
 
   for (let i = 0; i < lengthArray; i++) {
     circles.push(new Circle());
@@ -39,7 +39,7 @@ function initialCircles() {
       X: centerScreen.X,
       Y: centerScreen.Y,
     };
-    circles[i].stepVector = 1;
+    circles[i].stepVector = Math.ceil(Math.random() * 5);
   }
 
   circles[0].lengthVector = 100;
@@ -82,6 +82,7 @@ function drawAnimation() {
 }
 
 function newStep(index) {
+  if (!circles.length) return;
   const min = -10;
   const max = 10;
   const step = 1;
