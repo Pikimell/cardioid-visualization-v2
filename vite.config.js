@@ -25,6 +25,18 @@ export default defineConfig(({ command }) => {
       },
       outDir: '../dist',
     },
-    plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
+    plugins: [
+      injectHTML(),
+      FullReload(['./src/**/**.html']),
+      copy({
+        targets: [
+          {
+            src: 'js/*',
+            dest: 'dist/js',
+          },
+        ],
+        hook: 'writeBundle',
+      }),
+    ],
   };
 });
