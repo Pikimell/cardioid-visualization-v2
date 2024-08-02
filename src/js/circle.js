@@ -8,9 +8,10 @@ class Circle {
     this.isDrawingCircle = false;
     this.isDrawingVector = false;
     this.penWidth = 2;
+    this.color = [255, 0, 0];
   }
 
-  drawCircle() {
+  drawPoint() {
     if (this.isDrawingCircle) {
       fill(0);
       stroke(0);
@@ -25,7 +26,7 @@ class Circle {
 
   drawVector() {
     if (this.isDrawingVector) {
-      stroke(255, 0, 0);
+      stroke(...this.color);
       line(
         this.centerCircle.X,
         this.centerCircle.Y,
@@ -46,6 +47,18 @@ class Circle {
 
   nextStep() {
     this.angle += this.stepVector;
+
+    if (this.angle > 360) this.angle -= 360;
+    if (this.angle < 0) this.angle += 360;
+
     this.setAngle(this.angle);
+  }
+
+  drawCircle() {
+    for (let i = 0; i < 360; i++) {
+      this.drawPoint();
+      this.drawVector();
+      this.nextStep();
+    }
   }
 }

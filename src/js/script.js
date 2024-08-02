@@ -1,9 +1,16 @@
-const width = window.innerWidth - 10;
-const height = window.innerHeight - 20;
+const width = Math.round(window.innerWidth * 0.8);
+const height = Math.round(window.innerHeight * 0.8);
 const centerScreen = { X: width / 2, Y: height / 2 };
 
 let circles = [];
-let FPS = 0;
+let FPS = 1;
+let frame = 0;
+
+const options = {
+  drawAnimation: true,
+  clearCanvas: true,
+  isActive: true,
+};
 
 function setup() {
   createCanvas(width, height);
@@ -12,18 +19,18 @@ function setup() {
 }
 
 function draw() {
-  FPS++;
-  FPS %= 2;
+  frame++;
+  frame %= FPS;
 
-  if (FPS === 0) {
-    background(255);
+  if (frame === 0 && options.isActive) {
+    if (options.clearCanvas) background(255);
+
     drawCircles();
-    newStep(circles.length - 2);
   }
 }
 
 function initialCircles() {
-  let lengthArray = 4;
+  let lengthArray = 1;
 
   for (let i = 0; i < lengthArray; i++) {
     circles.push(new Circle());
@@ -31,35 +38,27 @@ function initialCircles() {
       X: centerScreen.X,
       Y: centerScreen.Y,
     };
-    circles[i].stepVector = 0;
+    circles[i].stepVector = 1;
   }
 
   circles[0].lengthVector = 100;
 
-  circles[circles.length - 2].isDrawingCircle = true;
   circles[circles.length - 1].isDrawingCircle = true;
   circles[circles.length - 1].isDrawingVector = true;
 }
 
 function drawCircles() {
-  circles[0].nextStep();
-  circles[0].drawVector();
-  circles[0].drawCircle();
-
-  for (let j = 0; j < 360; j++) {
-    for (let i = 0; i < circles.length; i++) {
-      circles[i].nextStep();
-
-      if (i > 0) {
-        circles[i].centerCircle = {
-          X: circles[i - 1].endPointVector.X,
-          Y: circles[i - 1].endPointVector.Y,
-        };
-      }
-
-      circles[i].drawVector();
-      circles[i].drawCircle();
+  for (let i = 0; i < circles.length; i++) {
+    if (i > 0) {
+      circles[i].centerCircle = {
+        X: circles[i - 1].endPointVector.X,
+        Y: circles[i - 1].endPointVector.Y,
+      };
     }
+
+    circles[i].drawVector();
+    circles[i].drawPoint();
+    circles[i].nextStep();
   }
 }
 
