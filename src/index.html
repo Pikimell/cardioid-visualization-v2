@@ -20,26 +20,6 @@
   </head>
   <body>
     <div>
-      <div class="form">
-        <button class="btn btn-primary js-btn" data-type="add">
-          Add circle
-        </button>
-        <button class="btn btn-primary js-btn" data-type="reset">Reset</button>
-        <button class="btn btn-primary js-btn" data-type="clear-canvas">
-          Clear Canvas
-        </button>
-        <button class="btn btn-primary js-btn" data-type="cleaner">
-          On / Off cleaner
-        </button>
-        <button class="btn btn-primary js-btn" data-type="animation">
-          On / Off animation
-        </button>
-
-        <button class="btn btn-primary js-btn" data-type="activate">
-          Start / Stop
-        </button>
-      </div>
-
       <form class="form js-form">
         <input
           type="number"
@@ -90,19 +70,41 @@
         <button class="btn btn-primary" data-update>Update</button>
         <button class="btn btn-primary" data-remove>Remove</button>
       </form>
-    </div>
+      <div class="form">
+        <button class="btn btn-primary js-btn" data-type="add">
+          Add circle
+        </button>
+        <button class="btn btn-primary js-btn" data-type="reset">Reset</button>
+        <button class="btn btn-primary js-btn" data-type="clear-canvas">
+          Clear Canvas
+        </button>
+        <button class="btn btn-primary js-btn" data-type="cleaner">
+          On / Off cleaner
+        </button>
+        <button class="btn btn-primary js-btn" data-type="animation">
+          On / Off animation
+        </button>
 
-    <input
-      class="js-animation-speed animation-speed"
-      type="range"
-      min="0"
-      max="29"
-      value="15"
-    />
+        <button class="btn btn-primary js-btn" data-type="activate">
+          Start / Stop
+        </button>
+
+        <input
+          class="js-animation-speed animation-speed"
+          type="range"
+          min="0"
+          max="29"
+          value="29"
+        />
+      </div>
+
+      <div class="js-example form examples"></div>
+    </div>
 
     <script src="./js/p5.js"></script>
     <script src="./js/circle.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/controls.js"></script>
+    <script src="./js/examples.js"></script>
   </body>
 </html>

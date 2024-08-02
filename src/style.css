@@ -31,7 +31,10 @@ body * {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: center;
+  justify-content: flex-start;
+
+  max-height: 350px;
+  overflow: auto;
 }
 
 .form-check {
@@ -55,9 +58,25 @@ body * {
   min-height: 15px;
 }
 
-.animation-speed {
-  position: fixed;
-  bottom: 11vh;
-  max-width: 300px;
-  left: 250px;
+.examples {
+  max-height: 100px;
+  overflow: auto;
+}
+
+*::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+  background-color: transparent;
+  scroll-padding: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(24, 24, 24, 0.561);
+  transition: all 2s linear;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  border-radius: 5px;
+  background-color: rgba(41, 41, 41, 0.561);
 }
