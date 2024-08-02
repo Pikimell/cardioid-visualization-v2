@@ -1,11 +1,11 @@
 {
-  "name": "circles",
+  "name": "cardioid-visualization-v2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build --base=/circles/",
+    "build": "vite build --base=/cardioid-visualization-v2/",
     "preview": "vite preview"
   },
   "devDependencies": {
